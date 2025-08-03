@@ -442,12 +442,13 @@ def main_app():
 
     with st.expander("📂 Use Sample Dataset"):
         sample_files = {
-    "imbd data": "https://raw.githubusercontent.com/aravind-sg/cleaner-app/main/sample_data/imbd.csv",
-    "Books data": "https://raw.githubusercontent.com/aravind-sg/cleaner-app/main/sample_data/books.csv",
-    "Youtube": "https://raw.githubusercontent.com/aravind-sg/cleaner-app/main/sample_data/Youtube data.csv",
-    "Automobile": "https://raw.githubusercontent.com/aravind-sg/cleaner-app/main/sample_data/automobile_data.csv",
-    "AmesHousing": "https://raw.githubusercontent.com/aravind-sg/cleaner-app/main/sample_data/AmesHousing.csv"
+    "IMDB": "https://raw.githubusercontent.com/aravindmarri10/data-cleaning-assistant/main/sample_data/imdb_data.csv",
+    "Books": "https://raw.githubusercontent.com/aravindmarri10/data-cleaning-assistant/main/sample_data/books.csv",
+    "Youtube": "https://raw.githubusercontent.com/aravindmarri10/data-cleaning-assistant/main/sample_data/Youtube.csv",
+    "Automobile": "https://raw.githubusercontent.com/aravindmarri10/data-cleaning-assistant/main/sample_data/automobile_data.csv",
+    "AmesHousing": "https://raw.githubusercontent.com/aravindmarri10/data-cleaning-assistant/main/sample_data/AmesHousing.csv"
 }
+
 
 
         sample_choice = st.selectbox("Choose a sample dataset:", list(sample_files.keys()))
