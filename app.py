@@ -17,17 +17,29 @@ st.title("🧼 Cleaner - Your Data Cleaning Assistant")
 st.markdown("A powerful app to clean, analyze, and transform your CSV datasets.")
 
 # ====== Upload File ======
+# ====== Load Data (from upload or local sample) ======
 def load_data(file):
-    if "file_name" not in st.session_state or st.session_state.file_name != file.name:
-        try:
+    try:
+        if isinstance(file, str):  # Local sample path
             df = pd.read_csv(file)
-            df = df.replace(['-', 'n/a', 'N/A', 'missing'], np.nan)
-            st.session_state.df = df
-            st.session_state.raw_data = df.copy()
-            st.session_state.file_name = file.name
-        except Exception as e:
-            st.error(f"❌ Failed to load file: {e}")
+            st.session_state.file_name = file  # store path as identifier
+        else:  # Uploaded file
+            if "file_name" not in st.session_state or st.session_state.file_name != file.name:
+                df = pd.read_csv(file)
+                st.session_state.file_name = file.name
+            else:
+                df = st.session_state.df.copy()  # already loaded
+
+        df = df.replace(['-', 'n/a', 'N/A', 'missing'], np.nan)
+        st.session_state.df = df
+        st.session_state.raw_data = df.copy()
+
+    except Exception as e:
+        st.error(f"❌ Failed to load file: {e}")
+        raise e
+
     return st.session_state.df, st.session_state.raw_data
+
 
 
 # ====== Preview Section ======
@@ -427,6 +439,24 @@ def download_data(df):
 # ====== Cleaner Layout ======
 def main_app():
     file = st.file_uploader("📤 Upload CSV file", type=["csv"])
+
+    with st.expander("📂 Use Sample Dataset"):
+        sample_files = {
+    "imbd data": "https://raw.githubusercontent.com/aravind-sg/cleaner-app/main/sample_data/imbd.csv",
+    "Books data": "https://raw.githubusercontent.com/aravind-sg/cleaner-app/main/sample_data/books.csv",
+    "Youtube": "https://raw.githubusercontent.com/aravind-sg/cleaner-app/main/sample_data/Youtube data.csv",
+    "Automobile": "https://raw.githubusercontent.com/aravind-sg/cleaner-app/main/sample_data/automobile_data.csv",
+    "AmesHousing": "https://raw.githubusercontent.com/aravind-sg/cleaner-app/main/sample_data/AmesHousing.csv"
+}
+
+
+        sample_choice = st.selectbox("Choose a sample dataset:", list(sample_files.keys()))
+        if st.button("Load Selected Sample"):
+            file = sample_files[sample_choice]
+          
+            df, original = load_data(file)
+            st.success(f"Loaded sample: {sample_choice}")
+        
     if file:
         df, original = load_data(file)
 
