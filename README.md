@@ -2,7 +2,7 @@
 
 Cleaner is a no-code Streamlit app that helps you clean messy CSV datasets with ease. It supports missing value handling, outlier detection, type conversions, basic EDA, and more — all through an intuitive UI.
 
-Live App: [Click here to try it](https://datacleanerapp-5yhhyr4tjrpffpuycj384b.streamlit.app/)  
+Live App: [Click here to try it](https://data-cleaning-assistant-arfueufx59wrquriqkgk2e.streamlit.app/)  
 Sample Data: `sample_data/telco.csv`
 
 ---
