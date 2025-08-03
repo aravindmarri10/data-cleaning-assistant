@@ -438,28 +438,33 @@ def download_data(df):
 
 # ====== Cleaner Layout ======
 def main_app():
-    file = st.file_uploader("📤 Upload CSV file", type=["csv"])
+    
+    uploaded = st.file_uploader("📤 Upload CSV file", type=["csv"])
+    if uploaded:
+        st.session_state.file = uploaded
+
 
     with st.expander("📂 Use Sample Dataset"):
         sample_files = {
-    "IMDB": "https://raw.githubusercontent.com/aravindmarri10/data-cleaning-assistant/main/sample_data/imdb_data.csv",
     "Books": "https://raw.githubusercontent.com/aravindmarri10/data-cleaning-assistant/main/sample_data/books.csv",
     "Youtube": "https://raw.githubusercontent.com/aravindmarri10/data-cleaning-assistant/main/sample_data/Youtube.csv",
     "Automobile": "https://raw.githubusercontent.com/aravindmarri10/data-cleaning-assistant/main/sample_data/automobile_data.csv",
-    "AmesHousing": "https://raw.githubusercontent.com/aravindmarri10/data-cleaning-assistant/main/sample_data/AmesHousing.csv"
+    "AmesHousing": "https://raw.githubusercontent.com/aravindmarri10/data-cleaning-assistant/main/sample_data/AmesHousing.csv",
+    "IMDB": "https://raw.githubusercontent.com/aravindmarri10/data-cleaning-assistant/main/sample_data/imdb_data.csv"
 }
 
 
 
         sample_choice = st.selectbox("Choose a sample dataset:", list(sample_files.keys()))
         if st.button("Load Selected Sample"):
-            file = sample_files[sample_choice]
-          
-            df, original = load_data(file)
+            st.session_state.file = sample_files[sample_choice]
+
+            if "file" in st.session_state:
+                df, original = load_data(st.session_state.file)
             st.success(f"Loaded sample: {sample_choice}")
         
-    if file:
-        df, original = load_data(file)
+    if "file" in st.session_state:
+        df, original = load_data(st.session_state.file)
 
         tab = st.sidebar.radio(
             "📌 Select Operation",
