@@ -11,7 +11,6 @@ It supports missing value handling, outlier detection, type conversions, basic E
 
 ---
 
-![Cleaner Banner](demo/logo.png)
 
 ## 🧪 Try It Instantly
 
