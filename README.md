@@ -11,6 +11,8 @@ It supports missing value handling, outlier detection, type conversions, basic E
 
 ---
 
+![Cleaner Banner](demo/logo.png)
+
 ## 🧪 Try It Instantly
 
 - 👉 [Launch the Live App](https://data-cleaning-assistant-arfueufx59wrquriqkgk2e.streamlit.app/)
@@ -18,6 +20,10 @@ It supports missing value handling, outlier detection, type conversions, basic E
 - ⚙️ Just click and start cleaning — no setup or coding needed
 
 ---
+
+## Interface
+
+![Cleaner Banner](demo/Screenshot.png)
 
 ## ✨ Features (v1.4)
 
