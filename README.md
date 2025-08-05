@@ -7,9 +7,6 @@ It supports missing value handling, outlier detection, type conversions, basic E
   <a href="https://data-cleaning-assistant-arfueufx59wrquriqkgk2e.streamlit.app/">
     <img src="https://img.shields.io/badge/Try%20Live%20App-Streamlit-ff4b4b?style=for-the-badge&logo=streamlit&logoColor=white" alt="Live App Badge">
   </a>
-  <a href="https://github.com/aravindmarri10/data-cleaning-assistant/blob/main/sample_data/AmesHousing.csv">
-    <img src="https://img.shields.io/badge/Sample%20Dataset-Ames%20Housing-blue?style=for-the-badge" alt="Sample Dataset">
-  </a>
 </p>
 
 ---
