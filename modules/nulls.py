@@ -1,12 +1,14 @@
 import streamlit as st
-from .utils import get_null_summary,numeric_fill_ui,apply_numeric_fill,cat_fill_ui,apply_cat_fill
+from .utils import get_null_summary, numeric_fill_ui, apply_numeric_fill, cat_fill_ui, apply_cat_fill
 from .undo_reset import save_snapshot
 
-def null_handling(df):
+def null_handling():
     st.subheader("🔍 Null Value Handler")
+    df = st.session_state.df  # ✅ always start here
+
     sub = st.sidebar.radio("Select Null Handling Method", 
         ['Null Summary', 'Drop Rows with Nulls', 'Drop Columns with Nulls',
-         'Fill Numeric Nulls', 'Fill Categorical Nulls'], key = "null_handling_method")
+         'Fill Numeric Nulls', 'Fill Categorical Nulls'], key="null_handling_method")
 
     null_per = get_null_summary(df)
 
@@ -35,8 +37,7 @@ def null_handling(df):
             st.warning(f"⚠️ Will drop columns: {', '.join(to_drop)}")
             if st.button("🗑️ Drop Columns"):
                 save_snapshot(df)
-                df = df.drop(columns=to_drop)
-                st.session_state.df = df
+                st.session_state.df = df.drop(columns=to_drop)
                 st.success("✅ Columns dropped.")
         else:
             st.info("No columns exceed threshold.")
@@ -44,25 +45,25 @@ def null_handling(df):
     elif sub == 'Fill Numeric Nulls':
         numeric_cols = df.select_dtypes(include='number').columns
         numeric_nulls = null_per[null_per['Column'].isin(numeric_cols)]
-        
+
         if numeric_nulls.empty:
             st.info("✅ No numeric nulls.")
         else:
             numeric_fill_ui(numeric_nulls, df)
             if st.button("💾 Apply Fills"):
                 save_snapshot(df)
-                df = apply_numeric_fill(numeric_nulls, df)
-                st.session_state.df = df
-
+                st.session_state.df = apply_numeric_fill(numeric_nulls, df)
+                st.success("✅ Numeric nulls filled.")
 
     elif sub == 'Fill Categorical Nulls':
         cat_cols = df.select_dtypes(include='object').columns
         cat_nulls = null_per[null_per['Column'].isin(cat_cols)]
+
         if cat_nulls.empty:
             st.info("✅ No categorical nulls.")
         else:
             cat_fill_ui(cat_nulls, df)
             if st.button("💾 Apply Fills"):
                 save_snapshot(df)
-                df = apply_cat_fill(cat_nulls, df)
-                st.session_state.df = df
+                st.session_state.df = apply_cat_fill(cat_nulls, df)
+                st.success("✅ Categorical nulls filled.")
