@@ -54,7 +54,7 @@ if "file" in st.session_state:
             duplicates.drop_columns(df)
 
     elif tab == "Null Handling":
-        nulls.null_handling(df)
+        nulls.null_handling()
 
     elif tab == "Outlier Detection":
         outliers.outlier_detection(df)
