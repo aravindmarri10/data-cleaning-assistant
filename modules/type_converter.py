@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 from .undo_reset import save_snapshot
 
-# ====== Type Converter ======
 def type_convertor(df):
     st.subheader("🔄 Type Converter")
 
@@ -13,6 +12,7 @@ def type_convertor(df):
 
     new_type = st.selectbox("Convert to type", ["int", "float", "str", "datetime"])
 
+    # ==== Preview conversion ====
     if st.button("Preview Conversion"):
         try:
             if new_type == "int":
@@ -37,6 +37,7 @@ def type_convertor(df):
             else:
                 st.success("✅ Safe conversion. No nulls introduced.")
 
+            # Store preview in session
             st.session_state.converted_col = converted
             st.session_state.converted_col_name = selected
             st.session_state.new_dtype = new_type
@@ -44,6 +45,7 @@ def type_convertor(df):
         except Exception as e:
             st.error(f"⚠️ Conversion error: {e}")
 
+    # ==== Apply conversion ====
     if st.button("Apply Conversion"):
         if (
             "converted_col" in st.session_state and 
@@ -53,5 +55,11 @@ def type_convertor(df):
             df[selected] = st.session_state.converted_col
             st.session_state.df = df
             st.success(f"✅ Column '{selected}' converted to {st.session_state.new_dtype}.")
+
+            # Clear to prevent accidental reapply
+            del st.session_state.converted_col
+            del st.session_state.converted_col_name
+            del st.session_state.new_dtype
         else:
             st.warning("⚠️ Please preview before applying.")
+

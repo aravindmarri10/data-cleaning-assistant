@@ -35,6 +35,8 @@ def null_handling():
         to_drop = null_per[null_per['Null %'] > threshold]['Column'].tolist()
         if to_drop:
             st.warning(f"⚠️ Will drop columns: {', '.join(to_drop)}")
+            if st.checkbox("Preview columns to be dropped"):
+                st.dataframe(df[to_drop].head())
             if st.button("🗑️ Drop Columns"):
                 save_snapshot(df)
                 st.session_state.df = df.drop(columns=to_drop)

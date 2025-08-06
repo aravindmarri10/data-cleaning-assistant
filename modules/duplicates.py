@@ -1,7 +1,8 @@
 import streamlit as st
 from .undo_reset import save_snapshot
 
-def remove_duplicates(df):
+def remove_duplicates():
+    df = st.session_state.df  
     st.subheader("🧭 Duplicate Detection")
     dup = df.duplicated().sum()
     if dup > 0:
@@ -14,12 +15,16 @@ def remove_duplicates(df):
     else:
         st.info("✨ No duplicates found.")
 
-def drop_columns(df):
+def drop_columns():
+    df = st.session_state.df  
     st.subheader("🧹 Drop Columns")
     cols = st.multiselect("Select columns to drop", df.columns.tolist())
     if not cols:
         st.warning("⚠️ No columns selected.")
     else:
+        if st.checkbox("Preview columns to be dropped"):
+            st.dataframe(df[cols].head())
+
         if st.button("🚫 Apply Drop"):
             save_snapshot(df)
             df = df.drop(columns=cols)

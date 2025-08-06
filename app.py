@@ -49,9 +49,9 @@ if "file" in st.session_state:
     elif tab == "Duplicate Handling":
         task = st.sidebar.radio("Select Task", ["Remove Duplicates", "Drop Columns"], key="dup_task")
         if task == "Remove Duplicates":
-            duplicates.remove_duplicates(df)
+            duplicates.remove_duplicates()
         else:
-            duplicates.drop_columns(df)
+            duplicates.drop_columns()
 
     elif tab == "Null Handling":
         nulls.null_handling()
