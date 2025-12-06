@@ -39,7 +39,7 @@ It supports missing value handling, outlier detection, type conversions, basic E
   - Detect and remove exact duplicates  
   - Drop unwanted columns with preview  
 
-- **📊 EDA Tools**  
+- **📊 Charts**  
   - Histogram, Box Plot, Bar Plot, Category vs. Numeric Plot, Correlation Heatmap  
   - Downloadable plots with UI toggle  
 

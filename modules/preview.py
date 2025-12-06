@@ -4,7 +4,12 @@ import io
 def preview_data(df):
     st.subheader("👀 Dataset Preview")
     st.markdown(f"- **Rows:** {df.shape[0]} | **Columns:** {df.shape[1]}")
+
+    st.subheader("Head")
     st.dataframe(df.head(), use_container_width=True)
+
+    st.subheader("Tail")
+    st.dataframe(df.tail(), use_container_width=True)
 
     st.subheader("📊 Column Types & Info")
     buf = io.StringIO()

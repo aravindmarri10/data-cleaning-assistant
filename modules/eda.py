@@ -12,7 +12,7 @@ def eda(df):
         st.subheader("📉 Histogram")
         num_cols = df.select_dtypes(include='number').columns.tolist()
         col = st.selectbox("Select numeric columns", num_cols)
-        fig, ax = plt.subplots(figsize=(16, 4))
+        fig, ax = plt.subplots(figsize=(16, 9))
         sns.histplot(df[col], kde=True, ax=ax, color="steelblue", edgecolor='black')
         ax.set_title(f"Distribution of {col}", fontsize=14, pad=10) 
         ax.set_xlabel(col) 
@@ -26,7 +26,7 @@ def eda(df):
     elif plot == 'Box Plot':
         st.subheader("📦 Box Plot")
         col = st.selectbox("Select a numeric column", df.select_dtypes(include='number').columns)
-        fig, ax = plt.subplots(figsize=(16, 4))
+        fig, ax = plt.subplots(figsize=(16, 9))
         sns.boxplot(x=df[col], ax=ax, palette="Set3")
         ax.set_title(f"Boxplot of {col}", fontsize=14)
         ax.set_xlabel(col)

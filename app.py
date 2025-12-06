@@ -1,6 +1,6 @@
 import streamlit as st
 from modules import (
-    data_loader, preview, eda, duplicates, utils, nulls, outliers, type_converter, undo_reset
+    data_loader, preview, eda, duplicates, utils, nulls, outliers, type_converter, undo_reset, Sanitization
 )
 
 
@@ -37,13 +37,17 @@ if "file" in st.session_state:
 
     tab = st.sidebar.radio(
         "📌 Select Operation",
-        ["Preview", "EDA", "Duplicate Handling", "Null Handling", "Outlier Detection", "Type Convertor", "Undo Last Change", "Reset Data"]
+        ["Preview", "Data Sanitization", "Type Convertor", "Duplicate Handling", "Null Handling", "Outlier Detection", "Charts",  "Undo Last Change", "Reset Data"]
     )
 
     if tab == "Preview":
-        preview.preview_data(df)
+        preview.preview_data(df) 
 
-    elif tab == "EDA":
+    elif tab == "Data Sanitization":
+        Sanitization.santize()
+
+
+    elif tab == "Charts":
         eda.eda(df)
 
     elif tab == "Duplicate Handling":
