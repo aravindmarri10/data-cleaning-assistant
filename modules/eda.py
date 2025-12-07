@@ -6,7 +6,7 @@ from .utils import plot_and_download,download_data
 
 def eda(df):
     st.subheader("📊 Exploratory Data Analysis")
-    plot = st.sidebar.radio("Choose EDA Plot", ['Histogram', 'Box Plot', 'Bar Plot', 'Category vs. Numeric Bar', 'Heat Map'], key = "eda_plot_choice")
+    plot = st.sidebar.radio("Choose Plot", ['Histogram', 'Box Plot', 'Bar Plot'], key = "eda_plot_choice")
 
     if plot == 'Histogram':
         st.subheader("📉 Histogram")
@@ -36,7 +36,12 @@ def eda(df):
     elif plot == 'Bar Plot':
         st.subheader("📊 Bar Plot")
         cat_col = st.selectbox("Select a categorical column", df.select_dtypes(include='object').columns)
-        order = df[cat_col].value_counts().index
+        unique_count = df[cat_col].nunique()
+        if (unique_count > 20):
+            st.warning(f"⚠️ '{cat_col}' has {unique_count} unique values. Showing only Top 20 categories.")
+            order = df[cat_col].value_counts().head(20).index 
+        else:
+            order = df[cat_col].value_counts().head(10).index
         fig, ax = plt.subplots(figsize=(16, 4))
         sns.countplot(x=cat_col, data=df, order=order, ax=ax, palette="Set2")
         ax.set_title(f"Count Plot of {cat_col}", fontsize=14)
@@ -46,8 +51,8 @@ def eda(df):
         file_name=f"{cat_col}_bar_plot.png"
         plot_and_download(fig, file_name )
 
-        
-        
+  
+"""       
     elif plot == 'Category vs. Numeric Bar':
             st.subheader("📊 Category vs. Numeric Bar Plot")
             cat_col = st.selectbox("Select categorical column", df.select_dtypes(include='object').columns)
@@ -69,3 +74,4 @@ def eda(df):
         ax.set_title("Correlation Matrix", fontsize=14)
         file_name= "correlation_heatmap.png"
         plot_and_download(fig, file_name )
+        """
