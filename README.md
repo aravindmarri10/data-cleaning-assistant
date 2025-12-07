@@ -40,7 +40,7 @@ It supports missing value handling, outlier detection, type conversions, basic E
   - Drop unwanted columns with preview  
 
 - **📊 Charts**  
-  - Histogram, Box Plot, Bar Plot, Category vs. Numeric Plot, Correlation Heatmap  
+  - Histogram, Box Plot, Bar Plot
   - Downloadable plots with UI toggle  
 
 - **🚨 Outlier Handling**  

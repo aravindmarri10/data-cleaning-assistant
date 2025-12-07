@@ -52,26 +52,3 @@ def eda(df):
         plot_and_download(fig, file_name )
 
   
-"""       
-    elif plot == 'Category vs. Numeric Bar':
-            st.subheader("📊 Category vs. Numeric Bar Plot")
-            cat_col = st.selectbox("Select categorical column", df.select_dtypes(include='object').columns)
-            num_col = st.selectbox("Select numeric column", df.select_dtypes(include='number').columns)
-            order = df.groupby(cat_col)[num_col].mean().sort_values(ascending=False).index
-            fig, ax = plt.subplots(figsize=(16, 4))
-            sns.barplot(x=cat_col, y=num_col, data=df, order=order, ax=ax, palette="Set2")
-            ax.set_title(f"Average {num_col} per {cat_col}", fontsize=14)
-            plt.xticks(rotation=45)
-            file_name=f"{cat_col}_vs_{num_col}_bar.png"
-            plot_and_download(fig, file_name )
-            
-
-    elif plot == 'Heat Map':
-        st.subheader("🌡️ Heatmap of Correlations")
-        num_df = df.select_dtypes(include='number')
-        fig, ax = plt.subplots(figsize=(10, 6))
-        sns.heatmap(num_df.corr(), annot=True, fmt=".2f", cmap="coolwarm", ax=ax, linewidths=0.5)
-        ax.set_title("Correlation Matrix", fontsize=14)
-        file_name= "correlation_heatmap.png"
-        plot_and_download(fig, file_name )
-        """
